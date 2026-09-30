@@ -10,6 +10,28 @@ import { doc, updateDoc, increment, arrayUnion } from 'firebase/firestore';
 import { db } from '../lib/firebase';
 import { useAuth } from '../context/AuthContext';
 
+// ── Lore temático dos banners ────────────────────────────────────────────────
+const THEME_LORE: Record<string, { tagline: string; origin: string; vibe: string; palette: string }> = {
+  banner_sakura: {
+    tagline: '🌸 A Paz de uma Flor em Pleno Caos',
+    origin: 'A cerejeira desabrocha por apenas uma semana antes de cair — no Japão, sua brevidade simboliza a beleza efêmera do momento. Seu ar é o do silêncio antes da chuva: contemplativo, sereno, completamente no presente.',
+    vibe: 'Romântico e contemplativo. Tons de rosa pêssego, pérola e branco arenoso. Calmo como o ar antes de uma chuva leve, com suavidade que derrite o ruído.',
+    palette: 'Rosa Sakura (#fb7185) → Branco Pérola (#fff1f2) → Borda Rosa Muted',
+  },
+  banner_cyberpunk: {
+    tagline: '⚡ Neon Sangrento em Ruínas Digitais',
+    origin: 'Neo-Tokyo à meia-noite: arranha-céus dopados por hologramas, ralos de chuva refletindo anúncios, e você no cruzamento de tudo, conectado ao fluxo de dados que pulsa sob a cidade.',
+    vibe: 'Urbe noturna agressiva. Ciano elétrico cortando o preto absoluto. Tecido synthwave, cyberdeck quente e a adrenalina do vazamento de informações.',
+    palette: 'Ciano Neon (#06b6d4) → Azul Petrol (#0891b2) → Preto Profundo (#030712)',
+  },
+  banner_invincible: {
+    tagline: '💥 Herói sem Medo, Herança sem Fim',
+    origin: 'Um homem com poderes godlike carregando o peso de um mundo inteiro. O invencível não é sobre nunca cair — é sobre levantar com força maior depois de cada queda. Inspiração em quadrinhos de impacto visceral.',
+    vibe: 'Brutalista, heroico e visceral. Amarelo solar de super-herói, azul marinho de golpe e tipografia de paneleira dinâmica. Impacto visual que marca.',
+    palette: 'Amarelo Solar (#ffee00) → Azul Céleste (#00aeef) → Azul Marinho Escuro (#002b4d)',
+  },
+};
+
 interface ShopItem {
   id: string;
   name: string;
@@ -24,8 +46,8 @@ interface ShopItem {
 const SHOP_ITEMS: ShopItem[] = [
   { 
     id: 'banner_sakura', 
-    name: 'Tema de Sakura', 
-    description: 'Um banner sereno da primavera com flores de cerejeira e arquitetura clássica.', 
+    name: 'Tema Sakura — Primavera Eterna', 
+    description: 'Banner inspirado na cerejeira que desabrocha por uma semana e define um verão inteiro. Tons de rosa pêssego e pérola envolvem toda a interface, convertendo cada tela em um jardim sereno. Perfeito para quem busca calma visual no meio do torneio.', 
     price: 500, 
     icon: ImageIcon, 
     category: 'COSMETIC', 
@@ -34,8 +56,8 @@ const SHOP_ITEMS: ShopItem[] = [
   },
   { 
     id: 'banner_cyberpunk', 
-    name: 'Tema Cyberpunk', 
-    description: 'Um visual futurista de Neo-Tokyo em alta definição para o seu perfil.', 
+    name: 'Tema Cyberpunk — Neo-Tokyo Noturno', 
+    description: 'A cidade que nunca dorme, pulseando em ciano neon sobre o preto absoluto. Hologramas, chuva ácida e dados vazando pela rede — tudo isso agora é a paleta do seu perfil. Visual sintwave agressivo para quem vive na velocidade do futuro.', 
     price: 1500, 
     icon: Zap, 
     category: 'COSMETIC', 
@@ -44,8 +66,8 @@ const SHOP_ITEMS: ShopItem[] = [
   },
   { 
     id: 'banner_invincible', 
-    name: 'Tema Invencível', 
-    description: 'Um visual brutalista e heróico inspirado na saga Invincible. Cores vibrantes com um toque de HQ clássica.', 
+    name: 'Tema Invencível — Poder Brutalista', 
+    description: 'Paineis de impacto, tipografia de super-herói e um amarelo solar que corta a escuridão. Inspirado na saga que provou que heróis podem sangrar — e voltar mais forte. Para quem carrega peso e não recua.', 
     price: 2500, 
     icon: Shield, 
     category: 'COSMETIC', 
@@ -410,14 +432,17 @@ export default function Shop() {
 
                 {/* Main Icon & Glow Accent (or Banner Image) */}
                 {item.imageUrl ? (
-                  <div className="mb-4 z-10 w-full h-24 rounded-xl overflow-hidden border border-zinc-800 relative">
-                     <img src={item.imageUrl} alt={item.name} className="w-full h-full object-cover" />
-                     {/* Overlay icon gently on top */}
-                     <div className="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent flex items-end p-3">
-                       <h3 className="font-black text-sm text-white tracking-tight drop-shadow-md">
-                         {item.name}
-                       </h3>
-                     </div>
+                  <div className="mb-3 z-10 w-full h-28 rounded-xl overflow-hidden border border-zinc-800 relative">
+                    <img src={item.imageUrl} alt={item.name} className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"/>
+                    {/* Gradient overlay with item enchanting name */}
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/40 to-transparent flex flex-col items-end justify-end p-3">
+                      <h3 className="font-black text-sm text-white tracking-tight drop-shadow-xl">
+                        {item.name}
+                      </h3>
+                      <p className="text-[9px] text-brand/80 font-mono tracking-widest mt-1 drop-shadow">
+                        {THEME_LORE[item.id]?.tagline}
+                      </p>
+                    </div>
                   </div>
                 ) : (
                   <div className="flex items-center gap-4 mb-4 z-10">
