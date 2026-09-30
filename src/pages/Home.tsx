@@ -364,7 +364,7 @@ export default function Home() {
       ) : (
         <div className="space-y-20">
           {/* Gacha Recommendation Section */}
-          <GachaRecommendation />
+          <GachaRecommendation mediaType={mediaType} />
 
           {/* Quick Stats & Activity Feed */}
           <div className="grid grid-cols-1 lg:grid-cols-4 gap-6">

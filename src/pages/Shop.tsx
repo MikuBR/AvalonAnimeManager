@@ -206,21 +206,8 @@ export default function Shop() {
             showToast(`Emblema "${item.name}" destacado no seu perfil! 💫`, "success");
         }
       } else if (item.category === 'COSMETIC') {
-         const bannerUrls: Record<string, string> = {
-            'banner_sakura': '/sakura-theme.png',
-            'banner_cyberpunk': '/cyberpunk-theme.jpg',
-            'banner_invincible': '/invincible-theme.png'
-         };
-         
-         const newBanner = bannerUrls[item.id] || '';
-         
-         if (profile.bannerURL === newBanner) {
-            await updateDoc(userRef, { bannerURL: '' });
-            showToast("Tema revertido ao padrão.", "info");
-         } else {
-            await updateDoc(userRef, { bannerURL: newBanner });
-            showToast(`Tema visual "${item.name}" equipado em todo o aplicativo! 🌸`, "success");
-         }
+        // Temas não mais estacáveis: apenas confirmar compra, sem alterar bannerURL
+        showToast(`Tema "${item.name}" adquirido! 🎉 (Temas não mais estacáveis — você ainda vê seu tema atual no perfil.)`, "success");
       } else if (item.category === 'BOOST') {
           let currentEnd = Date.now();
           if (profile.poMultiplierUntil) {
@@ -585,34 +572,33 @@ export default function Shop() {
                           
                           {/* Item specific actions */}
                           {item.category === 'BADGE' ? (
-                            <button 
+                            <button
                               onClick={() => useOrEquipItem(item)}
                               className={cn(
                                 "w-full sm:w-auto px-4 py-2 rounded-xl text-[9px] font-black uppercase tracking-widest transition-all shadow-sm border font-mono",
-                                isEquipped 
-                                  ? "bg-red-500/10 border-red-500/30 text-red-400 hover:bg-red-500 hover:text-white hover:shadow-[0_0_10px_rgba(239,68,68,0.3)]" 
+                                isEquipped
+                                  ? "bg-red-500/10 border-red-500/30 text-red-400 hover:bg-red-500 hover:text-white hover:shadow-[0_0_10px_rgba(239,68,68,0.3)]"
                                   : "bg-cyan-500/10 border-cyan-500/30 text-cyan-400 hover:bg-cyan-400 hover:text-[#07090e] hover:shadow-[0_0_10px_rgba(34,211,238,0.3)]"
                               )}
                             >
                               {isEquipped ? "Desequipar" : "Equipar"}
                             </button>
+                          ) : item.category === 'COSMETIC' ? (
+                            <div className="flex items-center gap-2 px-4 py-2 rounded-xl bg-brand/5 border border-brand/20 text-brand text-[9px] font-black uppercase tracking-widest whitespace-nowrap">
+                              <Check className="w-3.5 h-3.5 shrink-0" />
+                              Tema Adquirido
+                            </div>
                           ) : (
-                            <button 
+                            <button
                               onClick={() => useOrEquipItem(item)}
                               className={cn(
                                 "w-full sm:w-auto px-4 py-2 rounded-xl text-[9px] font-black uppercase tracking-widest transition-all shadow-sm border font-mono",
-                                item.category === 'COSMETIC'
-                                  ? (isCosmeticActive 
-                                      ? "bg-red-500/10 border-red-500/30 text-red-500 hover:bg-red-500 hover:text-white" 
-                                      : "bg-cyan-500/10 border-cyan-500/30 text-cyan-400 hover:bg-cyan-400 hover:text-[#07090e] hover:shadow-[0_0_10px_rgba(34,211,238,0.3)]")
-                                  : "bg-emerald-500/10 border-emerald-500/35 text-emerald-400 hover:bg-emerald-400 hover:text-[#07090e] hover:shadow-[0_0_10px_rgba(16,185,129,0.35)]"
+                                "bg-emerald-500/10 border-emerald-500/35 text-emerald-400 hover:bg-emerald-400 hover:text-[#07090e] hover:shadow-[0_0_10px_rgba(16,185,129,0.35)]"
                               )}
                             >
-                              {item.category === 'COSMETIC' ? cosmeticActionText : "Deflagrar Ampliador"}
+                              Deflagrar Ampliador
                             </button>
                           )}
-                        </div>
-                      );
                     })}
                   </div>
                 </div>

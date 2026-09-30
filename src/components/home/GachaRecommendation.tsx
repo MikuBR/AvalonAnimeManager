@@ -22,12 +22,15 @@ interface GachaResult {
   fetchMethod: FetchMethod;
 }
 
-export function GachaRecommendation() {
+export function GachaRecommendation({ mediaType: propMediaType }: { mediaType?: 'anime' | 'manga' }) {
   const { user } = useAuth();
   const { profile } = useProfile();
   const [loading, setLoading] = useState(false);
   const [result, setResult] = useState<GachaResult | null>(null);
   const GACHA_COST = 50;
+
+  // Determine active media type: prefer prop, fallback to user's preference via useAuth
+  const activeMediaType: MediaType = propMediaType ?? (user ? (useAuth().mediaType as 'anime' | 'manga') : 'anime');
 
   const MEDIA_TYPE_LABELS: Record<MediaType, string> = {
     anime: 'Anime',
@@ -85,8 +88,8 @@ export function GachaRecommendation() {
         availablePoints: increment(-GACHA_COST),
       });
 
-      // Random media type and fetch method
-      const mediaType: MediaType = Math.random() < 0.5 ? 'anime' : 'manga';
+      // Media type determined by activeMediaType (prop or user preference) — NO random
+      const mediaType: MediaType = activeMediaType;
       const fetchMethod: FetchMethod = pickRandom(['topRated', 'trending', 'popular', 'upcoming']);
 
       // Fetch data from jikanService

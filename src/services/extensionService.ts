@@ -111,7 +111,7 @@ export const getStableVideosForEpisode = (epId: string): StreamSource[] => {
     {
       url: selectedMp4,
       type: 'mp4',
-      quality: '1080p Premium (CDN)'
+      quality: '1080p (CDN)'
     },
     {
       url: stableHls,
