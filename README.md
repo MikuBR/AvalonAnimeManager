@@ -4,6 +4,18 @@ Avalon é uma plataforma otaku completa e de altíssimo nível, combinando o ras
 
 ---
 
+## 🔮 O que há de Novo na Versão v5.0.0 (The Feature Expansion Era)
+
+Nesta épica expansão, o universo Avalon transborda de novas dimensões: a busca se fragmenta em rotas especializadas, o gacha sobe de nível com cinco faces da fortuna, e sua lista ganha consciência própria através de status clicáveis. Cada melhoria foi forjada para ampliar a profundidade da sua jornada otaku:
+
+- **🔍 Busca Otimizada por Tipo**: A pesquisa unificada agora se divide em trilhas dedicadas e otimizadas — uma para Animes e outra para Mangás — explorando cada universo com paralelismo divino. Enquanto uma trilha penetra as entradas do Jikan, outra sobe as obras do MangaDex, carregando os resultados em sincronia perfeita para que você nunca mais espere pela revelação do próximo título.
+
+- **🎲 Gacha de Recomendação Expandido**: O sistema de classificação sofre uma evolução reminiscente de um jogo de coleção de cartas! Cinco raritidades agora regem o destino da sua prática: **SSR (Fate Super Rare)**, **SR (Special Rare)**, **R (Rare)**, **N (Normal)** e **C (Common)**. O pool de sugestões foi ampliado com sabedoria onisciente, englobando não apenas animes, mas também mangás em exibição e obras em primeira exibição, garantindo que nenhuma gema do acervo escape ao seu olhar.
+
+- **📋 Lista com Filtro por Status Clicável**: Sua lista pessoal ganha um novo nível de interatividade intuitiva. Basta clicar no status de qualquer entrada da tabela (Assistindo, Planejando, Concluído, etc.) para filtrar instantaneamente sua coleção por essa categoria. Além disso, a ordenação foi ampliada para três eixos supremos: **Progresso**, **Status** e **Data de Adição**, permitindo que você organize sua galeria como melhor lhe agrada — do mais recente ao mais antigo, do menos ao mais completo, ou pela jornada de progresso que cada trabalho desperta.
+
+---
+
 ## 🔮 O que há de Novo na Versão v4.9.0 (The Clean Slate Era)
 
 Nesta sublime atualização, abraçamos o vazio para pavimentar o caminho do resplendor. A economia sofre um "reset" filosófico:

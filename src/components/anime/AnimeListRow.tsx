@@ -1,6 +1,6 @@
 import React, { memo, useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { Trash2 } from 'lucide-react';
+import { Trash2, Filter } from 'lucide-react';
 import { cn } from '../../lib/utils';
 import { UserAnime, AnimeStatus } from '../../hooks/useAnimeList';
 import { useLanguage } from '../../context/LanguageContext';
@@ -12,6 +12,10 @@ interface AnimeListRowProps {
   removeAnime: (id: number) => void;
   onStatusChange: (id: number, status: AnimeStatus) => void;
   onProgressUpdate: (id: number, increment: boolean) => void;
+  activeFilter: AnimeStatus | 'ALL';
+  onStatusCellClick: (status: AnimeStatus | 'ALL') => void;
+  onSortColumn: (key: string) => void;
+  sortConfig: { key: string | null; direction: 'asc' | 'desc' | 'normal' };
 }
 
 const AnimeListRow = memo(({ 
@@ -19,7 +23,11 @@ const AnimeListRow = memo(({
   updateAnime, 
   removeAnime, 
   onStatusChange, 
-  onProgressUpdate 
+  onProgressUpdate,
+  activeFilter,
+  onStatusCellClick,
+  sortConfig,
+  onSortColumn
 }: AnimeListRowProps) => {
   const { formatTitle } = useLanguage();
   const [displayTotal, setDisplayTotal] = useState<number | undefined>(anime.totalProgress);
@@ -83,21 +91,24 @@ const AnimeListRow = memo(({
         </div>
       </td>
       <td className="px-4 py-3 text-center">
-        <select 
-          value={anime.status}
-          onChange={(e) => onStatusChange(anime.id, e.target.value as AnimeStatus)}
+        <button
+          onClick={() => onStatusCellClick(activeFilter === anime.status ? 'ALL' : anime.status)}
           className={cn(
-            "px-3 py-1.5 rounded-lg text-[9px] font-black uppercase tracking-widest focus:outline-none cursor-pointer transition-all hover:scale-105 shadow-sm",
+            "w-full px-3 py-1.5 rounded-lg text-[9px] font-black uppercase tracking-widest transition-all hover:scale-105 shadow-sm cursor-pointer",
+            anime.status === activeFilter && activeFilter !== 'ALL'
+              ? "ring-2 ring-brand ring-offset-1 ring-offset-[var(--color-card)]"
+              : "",
             anime.status === 'COMPLETED' ? "bg-emerald-500/10 text-emerald-500 border border-emerald-500/20" :
             (anime.status === 'WATCHING' || anime.status === 'READING') ? "bg-blue-500/10 text-blue-500 border border-blue-500/20" :
             "bg-gray-500/10 text-gray-400 border border-gray-500/20"
           )}
+          title="Clique para filtrar por este status"
         >
-          {anime.type === 'ANIME' ? <option value="WATCHING">Watching</option> : <option value="READING">Reading</option>}
-          <option value="COMPLETED">Completed</option>
-          <option value="PLANNING">Planning</option>
-          <option value="DROPPED">Dropped</option>
-        </select>
+          <Filter className="inline-block w-3 h-3 mr-1 opacity-60" />
+          {anime.status === 'WATCHING' ? 'Watching' :
+           anime.status === 'READING' ? 'Reading' :
+           anime.status}
+        </button>
       </td>
       <td className="px-4 py-3 text-center">
         <div className="flex flex-col items-center justify-center gap-1 group/progress">

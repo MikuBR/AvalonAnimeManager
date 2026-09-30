@@ -12,6 +12,18 @@ import { useAuth } from '../context/AuthContext';
 import { useProfile } from '../context/ProfileContext';
 import { motion, AnimatePresence } from 'motion/react';
 
+type SortKey = 'title' | 'score' | 'progress' | 'status' | 'startDate' | 'updatedAt';
+
+function SortIndicator({ key, sortConfig }: { key: SortKey; sortConfig: { key: SortKey | null; direction: 'asc' | 'desc' | 'normal' } }) {
+  const isActive = sortConfig.key === key;
+  return (
+    <>
+      <span className={cn("text-[6px] leading-[4px]", isActive && sortConfig.direction === 'desc' ? "text-brand" : "text-gray-600 opacity-50")}>▲</span>
+      <span className={cn("text-[6px] leading-[4px]", isActive && sortConfig.direction === 'asc' ? "text-brand" : "text-gray-600 opacity-50")}>▼</span>
+    </>
+  );
+}
+
 const ITEMS_PER_CHUNK = 50;
 
 export default function MyList() {
@@ -24,7 +36,7 @@ export default function MyList() {
   const [mediaType, setMediaType] = useState<'ANIME' | 'MANGA'>('ANIME');
   const [filter, setFilter] = useState<AnimeStatus | 'ALL'>('ALL');
   const [searchQuery, setSearchQuery] = useState('');
-  const [sortConfig, setSortConfig] = useState<{ key: 'title' | 'score' | null, direction: 'asc' | 'desc' | 'normal' }>({ key: null, direction: 'normal' });
+  const [sortConfig, setSortConfig] = useState<{ key: SortKey | null, direction: 'asc' | 'desc' | 'normal' }>({ key: null, direction: 'normal' });
 
   
   useEffect(() => {
@@ -93,6 +105,30 @@ export default function MyList() {
           const scoreA = a.score || 0;
           const scoreB = b.score || 0;
           return sortConfig.direction === 'asc' ? scoreA - scoreB : scoreB - scoreA;
+        } else if (sortConfig.key === 'progress') {
+          const progressA = a.progress || 0;
+          const progressB = b.progress || 0;
+          return sortConfig.direction === 'asc' ? progressA - progressB : progressB - progressA;
+        } else if (sortConfig.key === 'status') {
+          const statusOrder: Record<AnimeStatus, number> = { WATCHING: 0, READING: 0, PLANNING: 1, COMPLETED: 2, DROPPED: 3 };
+          const statusA = statusOrder[a.status] ?? 99;
+          const statusB = statusOrder[b.status] ?? 99;
+          if (sortConfig.direction === 'asc') {
+            if (statusA < statusB) return -1;
+            if (statusA > statusB) return 1;
+          } else {
+            if (statusA > statusB) return -1;
+            if (statusA < statusB) return 1;
+          }
+          return 0;
+        } else if (sortConfig.key === 'startDate') {
+          const dateA = a.startDate ? new Date(a.startDate).getTime() : 0;
+          const dateB = b.startDate ? new Date(b.startDate).getTime() : 0;
+          return sortConfig.direction === 'asc' ? dateA - dateB : dateB - dateA;
+        } else if (sortConfig.key === 'updatedAt') {
+          const dateA = a.updatedAt ? new Date(a.updatedAt).getTime() : 0;
+          const dateB = b.updatedAt ? new Date(b.updatedAt).getTime() : 0;
+          return sortConfig.direction === 'asc' ? dateA - dateB : dateB - dateA;
         }
         return 0;
       });
@@ -127,7 +163,7 @@ export default function MyList() {
     setVisibleCount(ITEMS_PER_CHUNK);
   }, [filter, sortConfig]);
 
-  const toggleSort = (key: 'title' | 'score') => {
+  const toggleSort = (key: SortKey) => {
     setSortConfig(prev => {
       if (prev.key === key) {
         if (prev.direction === 'normal') return { key, direction: 'asc' };
@@ -502,8 +538,7 @@ export default function MyList() {
                     <div className="flex items-center gap-1">
                       TITLE
                       <span className="flex flex-col gap-[1px]">
-                        <span className={cn("text-[6px] leading-[4px]", sortConfig.key === 'title' && sortConfig.direction === 'desc' ? "text-brand" : "text-gray-600 opacity-50")}>▲</span>
-                        <span className={cn("text-[6px] leading-[4px]", sortConfig.key === 'title' && sortConfig.direction === 'asc' ? "text-brand" : "text-gray-600 opacity-50")}>▼</span>
+                        <SortIndicator key="title" sortConfig={sortConfig} />
                       </span>
                     </div>
                   </th>
@@ -514,13 +549,54 @@ export default function MyList() {
                      <div className="flex items-center justify-center gap-1">
                       SCORE
                       <span className="flex flex-col gap-[1px]">
-                        <span className={cn("text-[6px] leading-[4px]", sortConfig.key === 'score' && sortConfig.direction === 'desc' ? "text-brand" : "text-gray-600 opacity-50")}>▲</span>
-                        <span className={cn("text-[6px] leading-[4px]", sortConfig.key === 'score' && sortConfig.direction === 'asc' ? "text-brand" : "text-gray-600 opacity-50")}>▼</span>
+                        <SortIndicator key="score" sortConfig={sortConfig} />
                       </span>
                     </div>
                   </th>
-                  <th className="px-4 py-4 text-center">STATUS</th>
-                  <th className="px-4 py-4 text-center">PROGRESS</th>
+                  <th 
+                    className="px-4 py-4 text-center cursor-pointer hover:text-[var(--color-text-bright)] transition-colors"
+                    onClick={() => toggleSort('status')}
+                  >
+                    <div className="flex items-center justify-center gap-1">
+                      STATUS
+                      <span className="flex flex-col gap-[1px]">
+                        <SortIndicator key="status" sortConfig={sortConfig} />
+                      </span>
+                    </div>
+                  </th>
+                  <th 
+                    className="px-4 py-4 text-center cursor-pointer hover:text-[var(--color-text-bright)] transition-colors"
+                    onClick={() => toggleSort('progress')}
+                  >
+                    <div className="flex items-center justify-center gap-1">
+                      PROGRESS
+                      <span className="flex flex-col gap-[1px]">
+                        <SortIndicator key="progress" sortConfig={sortConfig} />
+                      </span>
+                    </div>
+                  </th>
+                  <th 
+                    className="px-4 py-4 text-right cursor-pointer hover:text-[var(--color-text-bright)] transition-colors"
+                    onClick={() => toggleSort('startDate')}
+                  >
+                    <div className="flex items-center justify-end gap-1">
+                      START
+                      <span className="flex flex-col gap-[1px]">
+                        <SortIndicator key="startDate" sortConfig={sortConfig} />
+                      </span>
+                    </div>
+                  </th>
+                  <th 
+                    className="px-4 py-4 text-right cursor-pointer hover:text-[var(--color-text-bright)] transition-colors"
+                    onClick={() => toggleSort('updatedAt')}
+                  >
+                    <div className="flex items-center justify-end gap-1">
+                      UPDATED
+                      <span className="flex flex-col gap-[1px]">
+                        <SortIndicator key="updatedAt" sortConfig={sortConfig} />
+                      </span>
+                    </div>
+                  </th>
                   <th className="px-4 py-4 text-right">ACTIONS</th>
                 </tr>
               </thead>
@@ -533,6 +609,10 @@ export default function MyList() {
                     removeAnime={removeAnime}
                     onStatusChange={handleStatusChange}
                     onProgressUpdate={handleProgressUpdate}
+                    activeFilter={filter}
+                    onStatusCellClick={setFilter}
+                    onSortColumn={toggleSort}
+                    sortConfig={sortConfig}
                   />
                 ))}
               </tbody>
