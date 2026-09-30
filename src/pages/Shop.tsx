@@ -14,7 +14,7 @@ import { useAuth } from '../context/AuthContext';
 const THEME_LORE: Record<string, { tagline: string; origin: string; vibe: string; palette: string }> = {
   banner_sakura: {
     tagline: '🌸 A Paz de uma Flor em Pleno Caos',
-    origin: 'A cerejeira desabrocha por apenas uma semana antes de cair — no Japão, sua brevidade simboliza a beleza efêmera do momento. Seu ar é o do silêncio antes da chuva: contemplativo, sereno, completamente no presente.',
+    origin: 'A cerejeira desabrocha por apenas uma semana antes de cair — no Japão, sua brevidade simboliza a beleza efêmera do momento. Seu ar é o do silêncio antes da chuva: contemplativo,[...]',
     vibe: 'Romântico e contemplativo. Tons de rosa pêssego, pérola e branco arenoso. Calmo como o ar antes de uma chuva leve, com suavidade que derrite o ruído.',
     palette: 'Rosa Sakura (#fb7185) → Branco Pérola (#fff1f2) → Borda Rosa Muted',
   },
@@ -26,7 +26,7 @@ const THEME_LORE: Record<string, { tagline: string; origin: string; vibe: string
   },
   banner_invincible: {
     tagline: '💥 Herói sem Medo, Herança sem Fim',
-    origin: 'Um homem com poderes godlike carregando o peso de um mundo inteiro. O invencível não é sobre nunca cair — é sobre levantar com força maior depois de cada queda. Inspiração em quadrinhos de impacto visceral.',
+    origin: 'Um homem com poderes godlike carregando o peso de um mundo inteiro. O invencível não é sobre nunca cair — é sobre levantar com força maior depois de cada queda. Inspiração em',
     vibe: 'Brutalista, heroico e visceral. Amarelo solar de super-herói, azul marinho de golpe e tipografia de paneleira dinâmica. Impacto visual que marca.',
     palette: 'Amarelo Solar (#ffee00) → Azul Céleste (#00aeef) → Azul Marinho Escuro (#002b4d)',
   },
@@ -47,7 +47,7 @@ const SHOP_ITEMS: ShopItem[] = [
   { 
     id: 'banner_sakura', 
     name: 'Tema Sakura — Primavera Eterna', 
-    description: 'Banner inspirado na cerejeira que desabrocha por uma semana e define um verão inteiro. Tons de rosa pêssego e pérola envolvem toda a interface, convertendo cada tela em um jardim sereno. Perfeito para quem busca calma visual no meio do torneio.', 
+    description: 'Banner inspirado na cerejeira que desabrocha por uma semana e define um verão inteiro. Tons de rosa pêssego e pérola envolvem toda a interface, convertendo cada tela em um jardim de luz e silêncio.',
     price: 500, 
     icon: ImageIcon, 
     category: 'COSMETIC', 
@@ -57,7 +57,7 @@ const SHOP_ITEMS: ShopItem[] = [
   { 
     id: 'banner_cyberpunk', 
     name: 'Tema Cyberpunk — Neo-Tokyo Noturno', 
-    description: 'A cidade que nunca dorme, pulseando em ciano neon sobre o preto absoluto. Hologramas, chuva ácida e dados vazando pela rede — tudo isso agora é a paleta do seu perfil. Visual sintwave agressivo para quem vive na velocidade do futuro.', 
+    description: 'A cidade que nunca dorme, pulseando em ciano neon sobre o preto absoluto. Hologramas, chuva ácida e dados vazando pela rede — tudo isso agora é a paleta do seu perfil.',
     price: 1500, 
     icon: Zap, 
     category: 'COSMETIC', 
@@ -67,7 +67,7 @@ const SHOP_ITEMS: ShopItem[] = [
   { 
     id: 'banner_invincible', 
     name: 'Tema Invencível — Poder Brutalista', 
-    description: 'Paineis de impacto, tipografia de super-herói e um amarelo solar que corta a escuridão. Inspirado na saga que provou que heróis podem sangrar — e voltar mais forte. Para quem carrega peso e não recua.', 
+    description: 'Paineis de impacto, tipografia de super-herói e um amarelo solar que corta a escuridão. Inspirado na saga que provou que heróis podem sangrar — e voltar mais forte.',
     price: 2500, 
     icon: Shield, 
     category: 'COSMETIC', 
@@ -287,7 +287,7 @@ export default function Shop() {
       </AnimatePresence>
 
       {/* Cyber Panel with Stats & Balance */}
-      <div className="bg-[#0b0f19]/80 border border-zinc-800/80 rounded-2xl p-6 md:p-8 relative overflow-hidden shadow-xl flex flex-col md:flex-row justify-between items-start md:items-center gap-6">
+      <div className="bg-[#0b0f19]/80 border border-zinc-800/80 rounded-2xl p-6 md:p-8 relative overflow-hidden shadow-xl flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
         <div className="absolute top-0 right-0 w-80 h-80 bg-cyan-500/5 rounded-full blur-3xl -mr-40 -mt-40 pointer-events-none" />
         <div className="space-y-3 z-10">
           <div className="flex items-center gap-2">
@@ -400,12 +400,12 @@ export default function Shop() {
               <div 
                 key={item.id} 
                 className={cn(
-                  "bg-[#0b0e14] border border-zinc-800 rounded-2xl p-6 transition-all duration-300 relative overflow-hidden flex flex-col justify-between group shadow-lg shadow-black/80 hover:scale-[1.02]", 
+                  "bg-[#0b0e14] border border-zinc-800 rounded-2xl p-6 transition-all duration-300 relative overflow-hidden flex flex-col justify-between group shadow-lg shadow-black/80 hover:scale-[1.01] hover:border-zinc-700",
                   style.glow
                 )}
               >
                 {/* Visual Grid Scanline overlay on hover */}
-                <div className="absolute inset-0 bg-[linear-gradient(rgba(244,244,244,0.01)_1px,transparent_1px)] bg-[size:100%_4px] pointer-events-none opacity-0 group-hover:opacity-100 transition-opacity" />
+                <div className="absolute inset-0 bg-[linear-gradient(rgba(244,244,244,0.01)_1px,transparent_1px)] bg-[size:100%_4px] pointer-events-none opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
 
                 {/* Rarity & Category Header Tags */}
                 <div className="flex items-center justify-between mb-5 z-10">
@@ -469,7 +469,7 @@ export default function Shop() {
                     disabled={!canAfford}
                     onClick={() => buyItem(item)}
                     className={cn(
-                      "px-4 py-2.5 rounded-xl font-black text-[10px] uppercase tracking-widest transition-all duration-300 flex items-center gap-1.5 relative border shadow-sm touch-manipulation group/btn font-mono",
+                      "px-4 py-2.5 rounded-xl font-black text-[10px] uppercase tracking-widest transition-all duration-300 flex items-center gap-1.5 relative border shadow-sm touch-manipulation",
                       canAfford 
                         ? "bg-cyan-500/10 border-cyan-500/30 text-cyan-400 hover:bg-cyan-400 hover:text-[#07090e] hover:shadow-[0_0_12px_rgba(34,211,238,0.4)]" 
                         : "bg-red-500/5 border-red-500/10 text-red-500/40 cursor-not-allowed"
@@ -542,7 +542,7 @@ export default function Shop() {
                         <div 
                           key={item.instanceId || i} 
                           className={cn(
-                            "flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 p-5 bg-[#0e121c] rounded-xl relative overflow-hidden group border border-zinc-800/60 transition-all",
+                            "flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 p-5 bg-[#0e121c] rounded-xl relative overflow-hidden group border border-zinc-800/60 transition-all duration-300",
                             (isEquipped || isCosmeticActive) && "border-cyan-500/30 bg-cyan-500/5 shadow-[0_0_12px_rgba(6,182,212,0.1)]"
                           )}
                         >
@@ -584,9 +584,9 @@ export default function Shop() {
                               {isEquipped ? "Desequipar" : "Equipar"}
                             </button>
                           ) : item.category === 'COSMETIC' ? (
-                            <div className="flex items-center gap-2 px-4 py-2 rounded-xl bg-brand/5 border border-brand/20 text-brand text-[9px] font-black uppercase tracking-widest whitespace-nowrap">
-                              <Check className="w-3.5 h-3.5 shrink-0" />
-                              Tema Adquirido
+                            <div className="flex items-center gap-2 px-4 py-2 rounded-xl bg-brand/5 border border-brand/20 text-brand text-[9px] font-black uppercase tracking-widest whitespace-nowrap font-mono">
+                              {isCosmeticActive ? <Check className="w-3.5 h-3.5 shrink-0" /> : <ShieldCheck className="w-3.5 h-3.5 shrink-0" />}
+                              {isCosmeticActive ? "Tema Ativo" : "Tema Adquirido"}
                             </div>
                           ) : (
                             <button
@@ -599,6 +599,8 @@ export default function Shop() {
                               Deflagrar Ampliador
                             </button>
                           )}
+                        </div>
+                      );
                     })}
                   </div>
                 </div>
@@ -611,11 +613,11 @@ export default function Shop() {
                </div>
                <div className="text-center space-y-1">
                  <p className="text-xs font-black uppercase tracking-widest text-white font-mono">Baú de Equipamentos Vazio</p>
-                 <p className="text-[10px] text-gray-400 max-w-sm font-sans leading-relaxed">Você ainda não possui nenhum artefato ou modificador adquirido para ativação mística. Compre-os na aba de ofertas!</p>
+                 <p className="text-[10px] text-gray-400 max-w-sm font-sans leading-relaxed">Você ainda não possui nenhum artefato ou modificador adquirido para ativação mística. Compre-os na loja para fortalecer seu perfil.</p>
                </div>
                <button 
                  onClick={() => setTab('SHOP')}
-                 className="mt-2 px-5 py-2.5 bg-cyan-500/10 border border-cyan-500/30 hover:bg-cyan-400 hover:text-[#07090e] text-cyan-400 text-[9px] font-black uppercase tracking-widest rounded-xl transition-all active:scale-95 shadow-md shadow-cyan-500/5 font-mono"
+                 className="mt-2 px-5 py-2.5 bg-cyan-500/10 border border-cyan-500/30 hover:bg-cyan-400 hover:text-[#07090e] text-cyan-400 text-[9px] font-black uppercase tracking-widest rounded-xl transition-all duration-300"
                >
                  Abrir Mercado de Ofertas
                </button>
