@@ -497,3 +497,50 @@ O Avalon é um **Progressive Web App**. Você pode adicioná-lo à tela inicial 
 
 ---
 *Avalon é desenvolvido com dedicação artística e engenharia limpa. Que sua jornada otaku seja lendária! 🌌*
+
+---
+
+## 🎨 Temas Visuais — Guia Completo
+
+Cada tema do Avalon não é apenas uma paleta de cores — é uma identidade, uma vibração, uma narrativa que se espalha por toda a interface. Escolha o tema que comanda sua jornada otaku:
+
+### 🌸 Tema Sakura — Primavera Eterna
+**Tagline:** *"A Paz de uma Flor em Pleno Caos"*
+
+**Origem:** A cerejeira desabrocha por apenas uma semana antes de cair — no Japão, sua brevidade simboliza a beleza efêmera do momento. Seu ar é o do silêncio antes da chuva: contemplativo, sereno, completamente no presente.
+
+**Vibe:** Romântico e contemplativo. Tons de rosa pêssego, pérola e branco arenoso. Calmo como o ar antes de uma chuva leve, com suavidade que derrite o ruído.
+
+**Paleta:** Rosa Sakura (`#fb7185`) → Branco Pérola (`#fff1f2`) → Borda Rosa Muted
+
+**Ideal para:** Quem busca calma visual no meio do torneio. Um jardim sereno em cada tela.
+
+---
+
+### ⚡ Tema Cyberpunk — Neo-Tokyo Noturno
+**Tagline:** *"Neon Sangrento em Ruínas Digitais"*
+
+**Origem:** Neo-Tokyo à meia-noite: arranha-céus dopados por hologramas, ralos de chuva refletindo anúncios, e você no cruzamento de tudo, conectado ao fluxo de dados que pulsa sob a cidade.
+
+**Vibe:** Urbe noturna agressiva. Ciano elétrico cortando o preto absoluto. Tecido synthwave, cyberdeck quente e a adrenalina do vazamento de informações.
+
+**Paleta:** Ciano Neon (`#06b6d4`) → Azul Petrol (`#0891b2`) → Preto Profundo (`#030712`)
+
+**Ideal para:** Quem vive na velocidade do futuro. Visual sintwave agressivo para conectar-se ao fluxo.
+
+---
+
+### 💥 Tema Invencível — Poder Brutalista
+**Tagline:** *"Herói sem Medo, Herança sem Fim"*
+
+**Origem:** Um homem com poderes godlike carregando o peso de um mundo inteiro. O invencível não é sobre nunca cair — é sobre levantar com força maior depois de cada queda. Inspiração em quadrinhos de impacto visceral.
+
+**Vibe:** Brutalista, heroico e visceral. Amarelo solar de super-herói, azul marinho de golpe e tipografia de paneleira dinâmica. Impacto visual que marca.
+
+**Paleta:** Amarelo Solar (`#ffee00`) → Azul Céleste (`#00aeef`) → Azul Marinho Escuro (`#002b4d`)
+
+**Ideal para:** Quem carrega peso e não recua. Tipografia heroica para quem enfrenta o mundo.
+
+---
+
+*Qual tema comandará o próximo capítulo da sua saga otaku?*
